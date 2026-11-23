@@ -1,0 +1,47 @@
+﻿@model List<tblEmployees>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container mt-4" style="min-height: 90vh">
+
+    <h4 class="text-center mb-4">Employee List</h4>
+
+    <table class="table table-bordered align-middle text-center mt-2">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th style="width: 120px;">Action</th>
+            </tr>
+        </thead>
+
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.stFirstName @item.stLastName</td>
+                <td>@item.stEmail</td>
+                <td>
+                    <span class="badge @(item.stRole =="Admin" ? "bg-danger" : 
+                                        item.stRole == "Manager" ? "bg-warning text-dark" : "bg-success")">
+                        @item.stRole
+                    </span>
+                </td>
+                <td>
+                    <a asp-action="updateEmployee" asp-controller="Admin" asp-route-fiEmployeeId="@item.inEmployeeId" class="btn btn-sm btn-outline-primary">
+                        Edit
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div class="d-flex justify-content-end mb-3">
+        <a asp-controller="Admin" asp-action="addEmployee" class="btn btn-primary">
+            + Add Employee
+        </a>
+    </div>
+</div>

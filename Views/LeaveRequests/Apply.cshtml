@@ -1,0 +1,49 @@
+﻿@model ELMS.Models.tblLeaveRequests
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container">
+    
+    <div class="mx-auto mt-4" style="max-width: 500px;">
+
+        <form method="post" asp-action="Apply" asp-controller="leaveRequests">
+
+                <h4 class="mb-3 text-center">Apply Leave</h4>
+
+                <div class="mb-3">
+                    <label class="form-label">Start Date</label>
+                    <input asp-for="dtStartDate" type="date" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="dtStartDate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">End Date</label>
+                    <input asp-for="dtEndDate" type="date" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="dtEndDate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Reason</label>
+                    <textarea asp-for="stReason" class="form-control"></textarea>
+                    <span asp-validation-for="stReason" class="text-danger"></span>
+                </div>
+
+                <div class="text-center mt-4">
+
+                    <button class="btn btn-primary px-5">Apply</button>
+
+                </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+

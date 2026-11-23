@@ -1,0 +1,74 @@
+﻿@using ELMS.Services
+
+@inject UserContext moUser
+
+@using System.Security.Claims
+
+@{
+    var role = User.FindFirst(ClaimTypes.Role)?.Value;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ELMS</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ELMS.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+         @if(moUser.miEmployeeId > 0)
+         {
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                
+                <div class="container-fluid">
+
+                    @if (role == "Employee")
+                    {
+                        <ul class="navbar-nav list-unstyled ">
+                            <li class="nav-item me-3">
+                                <a asp-action="apply" asp-controller="LeaveRequests" class="btn btn-primary">
+                                    Apply Leaves
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a asp-action="leaveHistory" asp-controller="LeaveRequests" class="btn btn-primary">
+                                    My Leaves
+                                </a>
+                            </li>
+                        </ul>
+                    }
+
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-danger" asp-action="logout" asp-controller="Account">
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+            </nav>
+        }
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - ELMS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
